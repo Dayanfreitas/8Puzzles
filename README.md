@@ -3,7 +3,7 @@
 Greedy Search (Estratégia Gulosa) é um algoritmo que busca encontrar a melhor resposta para cada passo, esperando alcançar um resultado global ótimo. O algoritmo guloso define, em cada iteração, o objeto mais “apetitoso” e a partir desse objeto ele constrói a solução do algoritmo. Ele toma suas decisões a partir das informações disponíveis na iteração corrente, sem se preocupar com as consequências decorrentes dessas decisões. A escolha que faz em cada iteração é dada como definitiva.
 É bom lembrar que Algoritmo guloso não é o mesmo que algoritmo de força bruta. Greedy significa que a cada passo o algoritmo vai selecionar a melhor opção a seguir, já brute-force (força bruta) procura seleciona a opção mais simples, óbvia ou direta, repetindo essa tentativa até encontrar o resultado desejado.
 
-**A* Search**
+**A Search**
 
 O algoritmo A* procura o caminho em um grafo de um vértice inicial até um vértice final. Assim como algoritmo Breadth First Search (Busca em Largura) e a formalidade do algoritmo de Dijkstra, ele é a combinação de aproximações heurísticas.
 Sua aplicação vai de aplicativos de busca de rotas de deslocamento entre localidades, até a resolução de quebra cabeça. Esse algoritmo é bastante utilizado para jogos.

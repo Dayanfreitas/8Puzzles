@@ -5,27 +5,105 @@
         <link rel="stylesheet" href="css/style.css">
         <title>8 Puzzle</title>
     </head>
-    <body>
+
+    <body onload="start()" onkeydown="getKeyAndMove(event)">
         <div class="box">
-            <ui>
-                <li class="block" ><h2 id="count0"></h2></li>
-                <li class="block" ><h2 id="count1"></h2></li>
-                <li class="block" ><h2 id="count2"></h2></li>
-                <li class="block" ><h2 id="count3"></h2></li>
-                <li class="block" ><h2 id="count4"></h2></li>
-                <li class="block" ><h2 id="count5"></h2></li>
-                <li class="block" ><h2 id="count6"></h2></li>
-                <li class="block" ><h2 id="count7"></h2></li>
-                <li class="block" ><h2 id="count8"></h2></li>
+            <ui id="box-puzzle">
+                <li class="block" ><h2 id="count1" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count2" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count3" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count4" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count5" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count6" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count7" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count8" onclick="clickMove(event)"></h2></li>
+                <li class="block" ><h2 id="count9" onclick="clickMove(event)"></h2></li>
             </ui>
         </div>
+
+        
+        <button type="button" onclick="solution()">Resolver</button>
     </body>
+
+    <!-- Importação de modulos -->
+    <script src="js/helper.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/evaluator.js"></script>
+    
+    <!-- Main -->
+    <script src="js/bootstrap.js"></script>
 </html>
 <script>
-    window.onload = numbers;
-    function numbers() {
-        for(i = 0; i < 10; i++) {
-            document.getElementById("count"+[i]).innerHTML = i;
+    function solution() {
+        console.log('solution')
+        solve()
+    }
+
+    function start() {
+        renderBlock(mainState)
+    }
+
+    function renderBlock (arr) {
+        const {initial, end} = mainState.State
+        console.log()
+        if (evaluator.isEquals()) {
+            alert("Resolvido parabéns")
+        }
+
+        // console.log("initial:", initial)
+        // console.log("end:", end)
+        
+        initial.split(" ").forEach((element,index) => {
+            console.log(element)
+            let i = index+1
+            let el = document.getElementById(`count${i}`)
+            
+            el.classList.remove('blanck')
+
+            if (element == "0") {
+                el.classList.add('blanck')
+            }
+            
+            el.innerHTML = element
+        });
+    }
+
+    function clickMove (event) {
+        let key = event.target.innerText
+        clickMoveController(key)
+        renderBlock()
+    }
+
+    function getKeyAndMove (event) {
+        const {keyCode} = event
+        
+        console.log(event)
+        // UP : 38
+        // DOWN : 40
+        // LEFT : 37
+        // RIGHT: 39
+
+        switch (keyCode) {
+            case 38:
+                move("up")
+                renderBlock()
+                break
+            case 40:
+                move("down")
+                renderBlock()
+                break
+            case 37:
+                move("left")
+                renderBlock()
+                break
+            case 39:
+                move("right")
+                renderBlock()
+                break
+            default:
+                console.log("Botão não implementado !")
+                break
         }
     }
+
 </script>

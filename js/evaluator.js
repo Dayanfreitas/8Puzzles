@@ -1,7 +1,5 @@
-
-
 const Evaluator = (State) => {
-    console.log(State)
+    // console.log(State)
     
     const isEquals = () => {
         return State.State.end == State.State.initial
@@ -13,24 +11,14 @@ const Evaluator = (State) => {
         let arrCurrentState = state.split(' ')
         let arrEndState = State.State.end.split(' ')
         
-        
-        console.log('State', arrCurrentState)
-        console.log('arrEndState', arrEndState)
-        console.log('length::', arrEndState.length)
+        let sm = 0
+        let sh = 0
 
-        // console.log(arrCurrentState[0])
-        // console.log(arrEndState.indexOf(arrCurrentState[0]))
-        
-        // console.log(arrCurrentState[1])
-        // console.log(arrEndState.indexOf(arrCurrentState[0]))
-
-
-        // console.log(arrCurrentState[0])
         arrCurrentState.forEach((e, index) => {
-            // console.log('index ->', index)
             if (e == 0) {
                 return
             }
+
             let positionA = index
             let positionB = (arrEndState.indexOf(e))
             let nM = 0
@@ -40,42 +28,31 @@ const Evaluator = (State) => {
             console.log(`A - ${positionA}`)
             console.log(`B - ${positionB}`)
             
-            // if (positionB > positionA) {
-            //     nM = (positionB - positionA)
-            //     // console.log(`A - B = ${ / State.State.nPuzzleSize }`)
-            // }
-
-            // if (positionB < positionA) {
-                
-            //     // console.log(`A - B = ${  / State.State.nPuzzleSize }`)
-            // }
-            nM = (positionB - positionA )
-
-            console.log("MOVIMENTOS " + nM)
-            console.log("MOVIMENTOS / 3 :" + nM / 3)
-            console.log("MOVIMENTOS % 3 :" + nM % 3)
+            nM = Helper.positivize((positionB - positionA)) / State.State.nPuzzleSize
+            
+            if (nM % 3 == 0 ) {
+                nM = nM / State.State.nPuzzleSize;
+            }
             
 
-            // console.log(`A = ${e}`)
-            // console.log(`B = ${e}`)
+            if (nM > 0) {
+                sh += 1
+            }
 
-            // console.log(`Item ${index} -  E ${e} posição :-> ${posicao}`)
-            // console.log(`Distância:`)
-
-            // console.log(`${nMovimento / State.State.nPuzzleSize}`)
-            
-
-            // console.log(arrEndState[e-1])
+            // arrSum.push(Math.floor(nM))
+            sm += Math.floor(nM)
         })
-        // debugger
 
+        // debugger
+        console.log(`${sh} + ${sm} = ${sh+sm}`)
+        return sh + sm;
     }
     
     //TODO: QUNTAAS PEÇAS FORA DO LUGAR
-    const h = (state) => {
+    // const h = (state) => {
 
-        debugger
-    }
+    //     debugger
+    // }
     
     const betterSearch = () => {
         let possiveisJogadas = State.possibleState(State.possibleMoves())
@@ -94,13 +71,12 @@ const Evaluator = (State) => {
                 weight: calculate(possiveisJogadas[e])
             }
         })
-
         
-        return 
+        return jogadas.sort((a, b) => a.weight - b.weight )[0]
     } 
 
     const calculate = (state) => {
-        return m(state) + h(state)
+        return m(state);
     }
 
     return {isEquals, betterSearch}

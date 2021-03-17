@@ -22,6 +22,12 @@ const Helper = function () {
         return arr
         
     }
+    
+    function positivize (number) {
+        if (number < 0)
+            return number * -1
+        return number
+    }
 
-    return {shuffle, swap}
+    return {shuffle, swap, positivize}
 }()

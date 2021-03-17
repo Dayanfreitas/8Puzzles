@@ -21,8 +21,12 @@
             </ui>
         </div>
 
-        
-        <button type="button" onclick="solution()">Resolver</button>
+        <center style="margin-top: 2em">
+            <button type="button" onclick="solution()">Resolver</button>
+            <!-- <button type="button" onclick="generateFirstInitialState(mainState.State.initial)">Embaralhar</button> -->
+        </center>
+
+        <div id="resolution"></div>
     </body>
 
     <!-- Importação de modulos -->
@@ -34,9 +38,29 @@
     <script src="js/bootstrap.js"></script>
 </html>
 <script>
+    
     function solution() {
-        console.log('solution')
-        solve()
+        let list = []
+        
+        while (mainState.State.initial != mainState.State.end) {
+            const best = evaluator.betterSearch()
+            mainState.State.initial = best.state
+            renderBlock(mainState)
+            
+            list.push(best)
+            // debugger
+        }
+
+        makeResolution(list)
+    }
+    
+    function makeResolution (list) {
+        console.log('Lista de jogadas',  list)
+        list.forEach((e) => {
+            let text = document.createElement('p')
+            text.innerHTML = `Direção ${e.key} | Jogada ${e.state}` 
+            document.getElementById('resolution').appendChild(text) 
+        })
     }
 
     function start() {
@@ -45,16 +69,12 @@
 
     function renderBlock (arr) {
         const {initial, end} = mainState.State
-        console.log()
         if (evaluator.isEquals()) {
             alert("Resolvido parabéns")
         }
 
-        // console.log("initial:", initial)
-        // console.log("end:", end)
-        
         initial.split(" ").forEach((element,index) => {
-            console.log(element)
+            // console.log(element)
             let i = index+1
             let el = document.getElementById(`count${i}`)
             

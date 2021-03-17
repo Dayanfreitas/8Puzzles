@@ -12,7 +12,8 @@ const generateFirstInitialState = (stateInitial) => {
 
 let stateInitial = generateFirstInitialState(mainState.State.initial)
 // mainState.State.initial = stateInitial
-mainState.State.initial = '7 6 2 1 0 4 3 5 8'
+
+mainState.State.initial = '1 2 0 4 5 3 7 8 6'
 // mainState.State.initial = '1 2 3 4 5 6 7 8 0'
 
 
@@ -30,13 +31,12 @@ function move (key) {
 
 
 function solve () { 
+
     while (mainState.State.initial != mainState.State.end) {
 
         let best = evaluator.betterSearch()
-        debugger 
+        mainState.State.initial = best.state
 
-
-        mainState.State.initial = mainState.State.end
     }
 
     alert("Resolução do problema !!")

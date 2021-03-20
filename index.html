@@ -31,6 +31,8 @@
 
     <!-- Importação de modulos -->
     <script src="js/helper.js"></script>
+    
+    <script src="js/Puzzle.js"></script>
     <script src="js/state.js"></script>
     <script src="js/evaluator.js"></script>
     
@@ -43,12 +45,17 @@
         let list = []
         
         while (mainState.State.initial != mainState.State.end) {
+            
             const best = evaluator.betterSearch()
             mainState.State.initial = best.state
-            renderBlock(mainState)
             
+            renderBlock(mainState)
             list.push(best)
+            
+
             // debugger
+            // mainState.State.initial = mainState.State.end 
+
         }
 
         makeResolution(list)

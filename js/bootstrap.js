@@ -1,21 +1,25 @@
-const mainState = State()
+const puzzle = Puzzle(3)
+console.log(puzzle.makePuzzle())
+
+const mainState = State({state : puzzle.makePuzzle()})
 const evaluator = Evaluator(mainState)
 
-const generateFirstInitialState = (stateInitial) => {
-    const newState = State();
+// const generateFirstInitialState = (stateInitial) => {
+//     const newState = State();
     
-    let arr = Helper.shuffle(stateInitial.split(" "))
-    newState.setInitial(arr.join(' '))
+//     let arr = Helper.shuffle(stateInitial.split(" "))
+//     newState.setInitial(arr.join(' '))
 
-    return newState.State.initial
-}
+//     return newState.State.initial
+// }
 
-let stateInitial = generateFirstInitialState(mainState.State.initial)
+// let stateInitial = generateFirstInitialState(mainState.State.initial)
 // mainState.State.initial = stateInitial
+// mainState.State.last = stateInitial
 
-mainState.State.initial = '1 2 0 4 5 3 7 8 6'
+mainState.State.initial = '0 2 4 8 5 3 6 7 1'
 // mainState.State.initial = '1 2 3 4 5 6 7 8 0'
-
+// mainState.getStateInPuzzleSize()
 
 function clickMoveController (key) {
     const arr = Object.values(mainState.possibleMoves())
@@ -35,6 +39,9 @@ function solve () {
     while (mainState.State.initial != mainState.State.end) {
 
         let best = evaluator.betterSearch()
+        mainState.State.initial = best.state
+        
+        debugger
         mainState.State.initial = best.state
 
     }

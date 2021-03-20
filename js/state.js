@@ -1,9 +1,13 @@
-const State = () => {
-    const State = {
-        initial: "1 2 3 4 5 6 7 8 0",
-        end: "1 2 3 4 5 6 7 8 0",
-        nPuzzleSize: 3,
-    }
+const State = ({state}) => {
+
+    const State = state;
+
+    // const State = {
+    //     initial: "1 2 3 4 5 6 7 8 0",
+    //     end: "1 2 3 4 5 6 7 8 0",
+    //     last: '',
+    //     nPuzzleSize: 3,
+    // }
     
     const possibleState = (possibleMove) => {
         return {
@@ -55,97 +59,52 @@ const State = () => {
 
     const move = (index, simule=true) => {
         const arr = State.initial.split(' ')
+        
         const positionBlockT = getPositonBlock(index)
         const positionBlockEmpty = getPositonBlock('0')
+
         Helper.swap(arr, positionBlockT, positionBlockEmpty)
         if (simule)
             return arr.join(' ')
         else
             State.initial = arr.join(' ')
     }
-
-    // const moveUp  = (index, simule=true) => {
-    //     const arr = State.initial.split(' ')
-    //     const positionBlockTop = getPositonBlock(index)
-    //     const positionBlockEmpty = getPositonBlock('0')
-        
-    //     // console.log('positionBlockTop', positionBlockTop)
-    //     // console.log('positionBlockEmpty', positionBlockEmpty)
-    //     // console.log('arr', arr[positionBlockTop])
-    //     // console.log('arr', arr[positionBlockEmpty])
-        
-    //     var b = arr[positionBlockTop];
-    //     arr[positionBlockTop] = arr[positionBlockEmpty];
-    //     arr[positionBlockEmpty] = b;
-        
-
-    //     let str = arr.join(' ')
-    //     if (simule) {
-    //         return str 
-            
-    //     }
-    //     return State.initial = str
-    // }
-
-    // const moveDown = (index ,simule=true) => {
-    //     const arr = State.initial.split(' ')
-    //     const positionBlockDown = getPositonBlock(index)
-    //     const positionBlockEmpty = getPositonBlock('0')
-        
-    //     var b = arr[positionBlockDown];
-    //     arr[positionBlockDown] = arr[positionBlockEmpty];
-    //     arr[positionBlockEmpty] = b;
-
-    //     let str = arr.join(' ')
-
-    //     if (simule) {
-    //         return str 
-            
-    //     }
-
-    //     return State.initial = str
-    // }
-
-    // const moveLeft = (index, simule=true) => {
-    //     const arr = State.initial.split(' ')
-    //     const positionBlockDown = getPositonBlock(index)
-    //     const positionBlockEmpty = getPositonBlock('0')
-        
-    //     var b = arr[positionBlockDown];
-    //     arr[positionBlockDown] = arr[positionBlockEmpty];
-    //     arr[positionBlockEmpty] = b;
-
-    //     let str = arr.join(' ')
-    //     if (simule) {
-    //         return str 
-            
-    //     }
-
-    //     return State.initial = str
-    // }
-
-    // const moveRight= (index ,simule=true) => {
-    //     const arr = State.initial.split(' ')
-    //     const positionBlockDown = getPositonBlock(index)
-    //     const positionBlockEmpty = getPositonBlock('0')
-        
-    //     var b = arr[positionBlockDown];
-    //     arr[positionBlockDown] = arr[positionBlockEmpty];
-    //     arr[positionBlockEmpty] = b;
-
-    //     let str = arr.join(' ')
-
-    //     if (simule) {
-    //         return str 
-            
-    //     }
-
-    //     return State.initial = str
-    // }
     
+    
+
+    const getStateInPuzzleSize = () => {
+        let arr = State.initial.split(' ')
+        
+        
+        let arrReturn = []
+
+        let arrTemp = [] // SizeMaximo State.nPuzzleSize
+        for (i = 0; i < State.nPuzzleSize * State.nPuzzleSize; i++) {
+            if (i !=0 && i % State.nPuzzleSize == 0) {
+                arrReturn.push(arrTemp)
+                arrTemp = []
+            }
+
+            arrTemp.push(arr[i])  
+        }
+        arrReturn.push(arrTemp)
+        
+        return arrReturn
+    }
+
     const setInitial = (state) => {
+        debugger
         State.initial = state
     }
 
-    return {State, setInitial, possibleMoves, possibleState, move}
+    const getPositionEndOfIndex = (index) => {
+        for (let line = 0; line < State.nPuzzleSize; line++) {
+            let column = State.matrizEnd[line].indexOf(index);
+            if (column >= 0) {
+                return  {line, column}
+            }
+        }
+    }
+
+    return {State, setInitial, possibleMoves, possibleState, getStateInPuzzleSize, move, getPositionEndOfIndex}
 }

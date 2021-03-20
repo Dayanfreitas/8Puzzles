@@ -6,7 +6,8 @@ const Helper = function () {
      * 
      * https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
      */
-    function shuffle(a) {
+    function shuffle(arr) {
+        let a = [...arr]
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [a[i], a[j]] = [a[j], a[i]];
@@ -29,5 +30,16 @@ const Helper = function () {
         return number
     }
 
-    return {shuffle, swap, positivize}
+    function separarArray(arr, tamanho) {
+        var novoArray = [];
+        var i = 0;
+        while (i < arr.length) {
+          novoArray.push(arr.slice(i, i + tamanho));
+          i += tamanho;
+        }
+        return novoArray;
+      }
+      
+
+    return {shuffle, swap, positivize, separarArray}
 }()

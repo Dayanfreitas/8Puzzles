@@ -1,34 +1,24 @@
+const audio = new Audio('../audio/Vapo-1.m4a')
 const puzzle = Puzzle(3)
-console.log(puzzle.makePuzzle())
-
 const mainState = State({state : puzzle.makePuzzle()})
+console.log('puzzle', mainState )
 const evaluator = Evaluator(mainState)
 
-// const generateFirstInitialState = (stateInitial) => {
-//     const newState = State();
-    
-//     let arr = Helper.shuffle(stateInitial.split(" "))
-//     newState.setInitial(arr.join(' '))
+// mainState.State.initial = '0 2 4 8 5 3 6 7 1'
 
-//     return newState.State.initial
-// }
-
-// let stateInitial = generateFirstInitialState(mainState.State.initial)
-// mainState.State.initial = stateInitial
-// mainState.State.last = stateInitial
-
-mainState.State.initial = '0 2 4 8 5 3 6 7 1'
-// mainState.State.initial = '1 2 3 4 5 6 7 8 0'
-// mainState.getStateInPuzzleSize()
+console.log(evaluator.calcMove(mainState.State.initial))
 
 function clickMoveController (key) {
     const arr = Object.values(mainState.possibleMoves())
     if (arr.indexOf(key) >= 0) {
+        audio.play()
         mainState.move(key, false)
     }
+
 }
 
 function move (key) {    
+    audio.play()
     mainState.State.initial = mainState.possibleState(mainState.possibleMoves())[key]
 }
 
@@ -40,7 +30,9 @@ function solve () {
 
         let best = evaluator.betterSearch()
         mainState.State.initial = best.state
-        
+        evaluator.g++
+
+
         debugger
         mainState.State.initial = best.state
 

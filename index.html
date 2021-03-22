@@ -41,24 +41,22 @@
 </html>
 <script>
     
-    function solution() {
+    async function solution() {
         let list = []
         
         while (mainState.State.initial != mainState.State.end) {
             
-            const best = evaluator.betterSearch()
+            const best = await evaluator.betterSearch(list)
             mainState.State.initial = best.state
+            // audio.play()
             
+            
+
             renderBlock(mainState)
-            list.push(best)
-            
-
-            // debugger
-            // mainState.State.initial = mainState.State.end 
-
+            // list.push(best)
         }
 
-        makeResolution(list)
+        // makeResolution(list)
     }
     
     function makeResolution (list) {

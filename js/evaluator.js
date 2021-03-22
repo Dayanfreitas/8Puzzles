@@ -1,126 +1,8 @@
 const Evaluator = (State) => {
-    
     const isEquals = () => {
         return State.State.end == State.State.initial
     }
 
-    const calculateDistance = (indexStateCurrent, indexStateEnd) => {
-        let arr = []
-        // console.log(`Posição inicial ${indexStateCurrent}`)
-        // console.log(`Posição final ${indexStateEnd}`)
-        
-        let variation = indexStateEnd - indexStateCurrent
-
-        
-        // console.log("D = FINAL - INICAL ")
-        console.log(`${indexStateEnd} - ${indexStateCurrent} = ${variation}`)
-        
-        if (variation == 0) {
-            console.log("MOVIMETO(S):" + variation)
-            return variation;
-        }
-        
-        // let isCornerLeft = ((indexStateCurrent + 1) % State.State.nPuzzleSize) == 1 ? true : false
-        // let isCornerRight = ((indexStateCurrent + 1) % State.State.nPuzzleSize) == 0 ? true : false
-        
-        // // console.log('isCornerLeft', isCornerLeft)
-        // // console.log('isCornerRight', isCornerRight)
-
-        // // if (isCornerLeft) {
-        // //     console.log("MOVIMETO(S):" + 1) 
-        // // }
-        
-        // // if (isCornerRight) {
-        // //     console.log("MOVIMETO(S):" + 1) 
-        // // }
-        
-        // if (isCornerRight) {
-        //     console.log("MOVIMETO(S):" + 3) 
-        //     return
-        // }
-        
-        // if (isCornerLeft) {
-        //     console.log("MOVIMETO(S):" + 3) 
-        //     return
-        // }
-        
-        // if (!isCornerLeft && !isCornerRight) {
-
-        // }
-
-        // if (variation >= 3 || variation <= -3) {
-        //     console.log("MOVIMETO(S):" + 1) 
-        //     return 1 + 1;
-        // }
-        
-        // // debugger
-        // console.log("MOVIMETO(S):" + Helper.positivize(variation)) 
-        // // console.log()
-        // return Helper.positivize(variation) + 1
-    }   
-
-    //TODO: SOMA DISTANCIAS DOS PONTOS
-    const m = (state) => {
-        let arrCurrentState = state.split(' ')
-        let arrEndState = State.State.end.split(' ')
-        
-        let sm = 0
-        let sh = 0
-
-        arrCurrentState.forEach((e, index) => {
-            if (e == 0) {
-                return
-            }
-
-            let positionA = index
-            let positionB = (arrEndState.indexOf(e))
-            let nM = 0
-
-            console.log("_______________________________")
-            console.log(`ITEM - ${e}`)
-            console.log(`A - ${positionA}`)
-            console.log(`B - ${positionB}`)
-            
-            nM = Helper.positivize((positionB - positionA)) / State.State.nPuzzleSize
-            
-            if (nM % 3 == 0 ) {
-                nM = nM / State.State.nPuzzleSize;
-            }
-            
-
-            if (nM > 0) {
-                sh += 1
-            }
-
-            // arrSum.push(Math.floor(nM))
-            sm += Math.floor(nM)
-        })
-
-        // debugger
-        console.log(`${sh} + ${sm} = ${sh+sm}`)
-        return sh + sm;
-    }
-    
-    //TODO: QUNTAAS PEÇAS FORA DO LUGAR
-    const h = (state) => {
-        let movementWeight = 0
-
-        let arrCurrentState = state.split(' ')
-        let arrEndState = State.State.end.split(' ')
-
-        arrCurrentState.forEach((el, index) => {
-            if (el == 0) return;
-            const indexStateCurrent = index
-            const indexStateEnd = arrEndState.indexOf(el)
-
-            console.log(`Elemento ${el}`)            
-            movementWeight += calculateDistance(indexStateCurrent, indexStateEnd)
-
-        })
-
-        return movementWeight
-    }
-    
     const betterSearch = () => {
         let possiveisJogadas = State.possibleState(State.possibleMoves())
         
@@ -145,22 +27,27 @@ const Evaluator = (State) => {
         })
     
         
-        debugger
-
-        const arrBestMovimente = jogadas.sort((a, b) => a.weight - b.weight ).filter(e => e.state != State.State.no)
-
+        // debugger
+        const arrBestMovimente = jogadas.sort((a, b) => a.weight - b.weight).filter((e) => e.state != State.State.no)
         let bestMovimente = arrBestMovimente[0]
-
+        
         State.State.no = State.State.initial
-        State.State.lastMove = bestMovimente
 
-        return bestMovimente
+        
+        // return bestMovimente
+
+        return new Promise((Resolve) => {
+            setTimeout(() => {
+                Resolve(bestMovimente)
+            }, 500);
+        }) 
 
     } 
 
     const calculate = (state) => {
         return calcMove(state)
         // return h(state);
+        // return getMinorNumbers(state);
 
     }
 
@@ -190,7 +77,7 @@ const Evaluator = (State) => {
                     const movements = calculateVariation(positionCurrent, positionEnd)
 
                     if (movements > 0) {
-                        // numbersOfMovements += movements;
+                        numbersOfMovements += movements;
                         partsOutOfPlace++;
                     }
                 
@@ -202,8 +89,31 @@ const Evaluator = (State) => {
 
         console.log('numbersOfMovements', numbersOfMovements)
         console.log('numbersOfMovements', partsOutOfPlace)
-        return numbersOfMovements + partsOutOfPlace
+        return numbersOfMovements + partsOutOfPlace 
     }
 
-    return {isEquals, betterSearch}
+    const getMinorNumbers = (s) => {
+        let count = 0
+        const state =  s.split(' ')
+
+        state.forEach((e, index) => {
+            
+            if (e == 0) {
+                return
+            }
+            
+            // console.log('E', e)
+            let nArr = state.filter((el, iel) => el < e && iel > index)
+            // console.log('nArr', nArr)
+            // console.log('NUMEROS MENORES', nArr.length)
+            count += nArr.length
+
+            // console.log('INDEX', index)
+            // console.log('\n')
+        })
+
+        return count
+    }
+
+    return {isEquals, betterSearch, calcMove, getMinorNumbers}
 }

@@ -2,5 +2,5 @@
     "viewportWidth": 1024,
     "viewportHeight": 768,
     "defaultCommandTimeout": 10000,
-    "baseUrl": "http://localhost:5500/"
+    "baseUrl": "http://127.0.0.1:5500/"
 }

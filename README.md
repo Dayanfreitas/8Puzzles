@@ -5,9 +5,7 @@ Greedy Search (Estratégia Gulosa) é um algoritmo que busca encontrar a melhor 
 
 Exemplo:
 
-"Problema do empacotamento
-
-No problema de bin packing (ou problema do empacotamento), objetos de diferentes volumes devem ser embalados em um número finito de bandejas ou recipientes de volume V de uma forma que minimize o número de recipientes utilizados. Na teoria da complexidade computacional, este é um problema de combinatória NP-difícil.
+" Problema do empacotamento: No problema de bin packing (ou problema do empacotamento), objetos de diferentes volumes devem ser embalados em um número finito de bandejas ou recipientes de volume V de uma forma que minimize o número de recipientes utilizados. Na teoria da complexidade computacional, este é um problema de combinatória NP-difícil.
 
 Podem ser utilizadas heurísticas gulosas para obtenção de uma solução aproximada, tais como: algoritmo first fit, algoritmo best fit, dentre outros. "
 

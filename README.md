@@ -3,6 +3,14 @@
 Greedy Search (Estratégia Gulosa) é um algoritmo que busca encontrar a melhor resposta para cada passo, esperando alcançar um resultado global ótimo. O algoritmo guloso define, em cada iteração, o objeto mais “apetitoso” e a partir desse objeto ele constrói a solução do algoritmo. Ele toma suas decisões a partir das informações disponíveis na iteração corrente, sem se preocupar com as consequências decorrentes dessas decisões. A escolha que faz em cada iteração é dada como definitiva.
 É bom lembrar que Algoritmo guloso não é o mesmo que algoritmo de força bruta. Greedy significa que a cada passo o algoritmo vai selecionar a melhor opção a seguir, já brute-force (força bruta) procura seleciona a opção mais simples, óbvia ou direta, repetindo essa tentativa até encontrar o resultado desejado.
 
+Exemplo:
+
+"Problema do empacotamento
+
+No problema de bin packing (ou problema do empacotamento), objetos de diferentes volumes devem ser embalados em um número finito de bandejas ou recipientes de volume V de uma forma que minimize o número de recipientes utilizados. Na teoria da complexidade computacional, este é um problema de combinatória NP-difícil.
+
+Podem ser utilizadas heurísticas gulosas para obtenção de uma solução aproximada, tais como: algoritmo first fit, algoritmo best fit, dentre outros. "
+
 **A Search**
 
 O algoritmo A* procura o caminho em um grafo de um vértice inicial até um vértice final. Assim como algoritmo Breadth First Search (Busca em Largura) e a formalidade do algoritmo de Dijkstra, ele é a combinação de aproximações heurísticas.
